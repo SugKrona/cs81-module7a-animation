@@ -1,5 +1,5 @@
 <!-- Gustavo Corona -->
-<!-- loadingAnimation.html made July 13, 2025 -->
+<!-- loadingAnimation.html made July 20, 2025 -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,14 +23,19 @@
             // Counts how many full sequences of the animation frames have played.
             let cycleCount = 0;
             // Sets the total number of animation sequences before it stops.
-            const maxCycles = 10;
+            const maxCycles = 10; // Total cycles to reach 100%
 
             // Starts a repeating timer that runs a piece of code every set number of milliseconds.
             // Creates the continuous, asynchronous animation loop.
             const interval = setInterval(() => {
+                // Calculate the current completion percentage based on cycles.
+                let percentage = Math.floor((cycleCount / maxCycles) * 100);
+                // Ensure percentage doesn't go over 100%.
+                if (percentage > 100) percentage = 100;
+
                 // Updates the text content of the 'loader' element on the web page.
-                // It uses the 'frames' array and a calculation to loop through the animation states.
-                loader.textContent = frames[index % frames.length];
+                // It combines the current animation frame with the calculated percentage.
+                loader.textContent = `${frames[index % frames.length]} ${percentage}%`;
                 // This moves the animation to the next frame.
                 index++;
 
@@ -43,8 +48,8 @@
                 if (cycleCount >= maxCycles) {
                     // Stops the repeating timer, ending the animation loop.
                     clearInterval(interval);
-                    // Updates the 'loader' element to a checkmark when the animation is done.
-                    loader.textContent = "✅";
+                    // Updates the 'loader' element to a checkmark and 100% when done.
+                    loader.textContent = "✅ 100%";
                     // Updates the 'status' element to show the animation is finished.
                     status.textContent = "Done!";
                 }
@@ -53,5 +58,5 @@
         // Runs the animation function when the web page loads.
         runLoadingAnimation();
     </script>
-</body>
+    </body>
 </html>
