@@ -1,0 +1,57 @@
+<!-- Gustavo Corona -->
+<!-- loadingAnimation.html made July 13, 2025 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loading Animation Simulator</title>
+</head>
+<body style="font-family: monospace; text-align: center; padding-top: 100px; background-color: #f4f4f4;">
+    <div id="loader" style="font-size: 2rem; margin-bottom: 20px;">Loading...</div>
+    <div id="status">Please wait</div>
+    <script>
+        // This function contains all the logic for the loading animation.
+        function runLoadingAnimation() {
+            const loader = document.getElementById("loader");
+            const status = document.getElementById("status");
+
+            // Holds the different symbols and dots that make up the animation sequence.
+            const frames = ["⏳", "⌛", ".", "..", "..."];
+            // Keeps track of the current position in the animation frames.
+            let index = 0;
+            // Counts how many full sequences of the animation frames have played.
+            let cycleCount = 0;
+            // Sets the total number of animation sequences before it stops.
+            const maxCycles = 10;
+
+            // Starts a repeating timer that runs a piece of code every set number of milliseconds.
+            // Creates the continuous, asynchronous animation loop.
+            const interval = setInterval(() => {
+                // Updates the text content of the 'loader' element on the web page.
+                // It uses the 'frames' array and a calculation to loop through the animation states.
+                loader.textContent = frames[index % frames.length];
+                // This moves the animation to the next frame.
+                index++;
+
+                // Checks if a complete cycle of all animation frames has finished.
+                if (index % frames.length === 0) {
+                    cycleCount++; // Increments the counter for completed cycles.
+                }
+
+                // Checks if the animation has completed its set number of total cycles.
+                if (cycleCount >= maxCycles) {
+                    // Stops the repeating timer, ending the animation loop.
+                    clearInterval(interval);
+                    // Updates the 'loader' element to a checkmark when the animation is done.
+                    loader.textContent = "✅";
+                    // Updates the 'status' element to show the animation is finished.
+                    status.textContent = "Done!";
+                }
+            }, 500); // The time delay between each animation update is 500 milliseconds (half a second).
+        }
+        // Runs the animation function when the web page loads.
+        runLoadingAnimation();
+    </script>
+</body>
+</html>
